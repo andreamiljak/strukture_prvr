@@ -9,33 +9,34 @@
 #define MAX_BROJ_BODOVA (50)
 
 typedef struct {
-	char ime[50];
-	char prezime[50];
+	char ime[MAX_LINE];
+	char prezime[MAX_LINE];
 	int bodovi;
 
 
 } studenti;
 
 int countStudents(char* filename);
-int loadFile(char* filename, studenti *student);
-void ispis(studenti *student, int numStudents);
+int loadFile(char* filename, studenti* student);
+int ispis(studenti* student, int numStudents);
 
 int main(void)
 {
 	char filename[MAX_FILE_NAME] = { 0 };
+	studenti *student;
 	printf("Insert filename ");
 	scanf(" %s", filename);
-	int brojStudenata = countStudents(filename);
+	int numStudents = countStudents(filename);
 
-	printf("Broj studenata u datoteci %s je %d", filename, countStudents(filename));
+	printf("Broj studenata u datoteci %s je %d\n\n", filename, numStudents);
 
 
-/*alokacija*/
+	/*alokacija*/
 
-	studenti* student;
-	student = (studenti*)malloc(brojStudenata * sizeof(studenti));
+	
+	student = (studenti*)malloc(numStudents * sizeof(studenti));
 	loadFile(filename, student);
-	ispis(student, brojStudenata);
+	ispis(student, numStudents);
 	return 0;
 }
 
@@ -49,24 +50,19 @@ int countStudents(char* filename)
 	if (fp == NULL) {
 		printf("File %s didn't open\r\n", filename);
 		return FILE_DIDNT_OPEN_ERROR;
-		}
-		while (!feof(fp)) {
-				fgets(buffer, MAX_LINE, fp); 
-			if (strcmp("\n", buffer) != 0) {
-				count++;
-			}
-		
+	}
+	while (!feof(fp)) {
+		fgets(buffer, MAX_LINE, fp);
+		if (strcmp("\n", buffer) != 0)
+			count++;
+	}
 
-
-
-		}
-
-		fclose(fp);
-		return count;
+	fclose(fp);
+	return count;
 
 }
 
-int loadFile(char* filename, studenti *student) {
+int loadFile(char* filename, studenti* student) {
 	FILE* fp = NULL;
 	int i = 0;
 	fp = fopen(filename, "r");
@@ -84,11 +80,12 @@ int loadFile(char* filename, studenti *student) {
 	return 0;
 }
 
-void ispis(studenti* student, int numStudents) {
-	float relativePointsNum;
+int ispis(studenti* student, int numStudents) {
+	float relativePointsNum = 0;
 	for (int i = 0; i < numStudents; i++) {
-		printf("%d. student: ", i + 1);
+		printf("%d. student: \n", i + 1);
 		relativePointsNum = ((float)student[i].bodovi / MAX_BROJ_BODOVA) * 100;
 		printf(" Ime: %s\n Prezime: %s\n Apsolutni broj bodova: %d\n Relativni broj bodova: %f\n", student[i].ime, student[i].prezime, student[i].bodovi, relativePointsNum);
 	}
+	return 0;
 }
