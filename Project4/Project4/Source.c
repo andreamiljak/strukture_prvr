@@ -23,7 +23,7 @@ int ispis(studenti* student, int numStudents);
 int main(void)
 {
 	char filename[MAX_FILE_NAME] = { 0 };
-	studenti *student;
+	studenti *student;                      		//postavi na nulu
 	printf("Insert filename ");
 	scanf(" %s", filename);
 	int numStudents = countStudents(filename);
@@ -34,9 +34,11 @@ int main(void)
 	/*alokacija*/
 
 	
-	student = (studenti*)malloc(numStudents * sizeof(studenti));
+	student = (studenti*)malloc(numStudents * sizeof(studenti));        //provjeri jel se alocirala memorija
 	loadFile(filename, student);
-	ispis(student, numStudents);
+										//provjerit jel se pravilno ucitalo
+	ispis(student, numStudents);	
+										//free(student)
 	return 0;
 }
 
