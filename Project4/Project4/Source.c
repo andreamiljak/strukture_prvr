@@ -23,7 +23,7 @@ int ispis(studenti* student, int numStudents);
 int main(void)
 {
 	char filename[MAX_FILE_NAME] = { 0 };
-	studenti *student;                      		//postavi na nulu
+	studenti *student=NULL;                      		//postavi na nulu
 	printf("Insert filename ");
 	scanf(" %s", filename);
 	int numStudents = countStudents(filename);
@@ -35,10 +35,16 @@ int main(void)
 
 	
 	student = (studenti*)malloc(numStudents * sizeof(studenti));        //provjeri jel se alocirala memorija
-	loadFile(filename, student);
-										//provjerit jel se pravilno ucitalo
-	ispis(student, numStudents);	
-										//free(student)
+	if (student == NULL)
+	{
+		printf("greska pri alokaciji memorije\n");
+	}
+	
+	loadFile(filename, student);					//provjerit jel se pravilno ucitalo?????
+										
+	ispis(student, numStudents);					//oslobđanje memorije
+	free(student);
+	
 	return 0;
 }
 
