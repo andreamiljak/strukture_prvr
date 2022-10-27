@@ -1,99 +1,90 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<malloc.h>
 
-#define FILE_DIDNT_OPEN_ERROR (-1)
-#define MAX_LINE (1024)
-#define MAX_FILE_NAME (256)
-#define MAX_BROJ_BODOVA (50)
-
-typedef struct {
-	char ime[MAX_LINE];
-	char prezime[MAX_LINE];
-	int bodovi;
+#define ERROR (-1)
+#define MAX (50)
+#define EXIT_SUCCESS (0)
 
 
-} studenti;
 
-int countStudents(char* filename);
-int loadFile(char* filename, studenti* student);
-int ispis(studenti* student, int numStudents);
+struct osoba;
+typedef struct osoba* ljud;
+typedef struct osoba {
+	char ime[MAX];
+	char prezime[MAX];
+	int godina;
+	ljud next;
+} Osoba;
+
+ljud Stvori(char* , char*, int);
+void UnosP(ljud head, ljud p);
+void Ispis(ljud head);
+
 
 int main(void)
 {
-	char filename[MAX_FILE_NAME] = { 0 };
-	studenti *student=NULL;                      		//postavi na nulu
-	printf("Insert filename ");
-	scanf(" %s", filename);
-	int numStudents = countStudents(filename);
-
-	printf("Broj studenata u datoteci %s je %d\n\n", filename, numStudents);
-
-
-	/*alokacija*/
-
+	Osoba head;
+	head.next = NULL;
+	ljud p = NULL;
+  ljud q = NULL;
+	int odabir = 0;
+	char ime[MAX] = { 0 };
+	char prezime[MAX] = { 0 };
+	int godina = 0;
 	
-	student = (studenti*)malloc(numStudents * sizeof(studenti));        //provjeri jel se alocirala memorija
-	if (student == NULL)
+	printf("zelite li unjeti ime na pocetak liste?\nda-> 1\n ne->2\n");
+	scanf("%d", &odabir);
+	while (odabir == 1)
 	{
-		printf("greska pri alokaciji memorije\n");
+		printf("IME: ");
+		scanf(" %s", ime);
+		printf("\nPREZIME: ");
+		scanf(" %s", prezime);
+		printf("\nGODINA: ");
+		scanf("%d", &godina);
+		p = Stvori(ime, prezime, godina);
+    UnosP(&head, p);
+		printf("zelite li unjeti ime na pocetak liste?\nda-> 1\n ne->2\n");
+		scanf("%d", &odabir);
+		
 	}
 	
-	loadFile(filename, student);					//provjerit jel se pravilno ucitalo?????
-										
-	ispis(student, numStudents);					//oslobđanje memorije
-	free(student);
-	
-	return 0;
+	Ispis(&head);
+
+	return EXIT_SUCCESS;
 }
 
+ljud Stvori(char* ime, char* prezime, int godina) {
+	ljud p = NULL;
+	p = (ljud)malloc(sizeof(Osoba));
+  strcpy(p->ime,ime);
+	strcpy(p->prezime, prezime);
+	p->godina=godina;
+	if (!p)
+	{
+		printf("alokacija je neuspjesna :( \n");
+		return NULL;
+	}
+	return p;
+}
 
-int countStudents(char* filename)
+void UnosP(ljud head, ljud p)
 {
-	FILE* fp = NULL;
-	int count = 0;
-	char buffer[MAX_LINE] = { 0 };
-	fp = fopen(filename, "r");
-	if (fp == NULL) {
-		printf("File %s didn't open\r\n", filename);
-		return FILE_DIDNT_OPEN_ERROR;
-	}
-	while (!feof(fp)) {
-		fgets(buffer, MAX_LINE, fp);
-		if (strcmp("\n", buffer) != 0)
-			count++;
-	}
-
-	fclose(fp);
-	return count;
-
+	p->next = head->next;
+	head->next = p;
 }
 
-int loadFile(char* filename, studenti* student) {
-	FILE* fp = NULL;
-	int i = 0;
-	fp = fopen(filename, "r");
-	if (fp == NULL) {
-		return FILE_DIDNT_OPEN_ERROR;
-	}
-	while (!feof(fp)) {
-		fscanf(fp, "%s", student[i].ime);
-		fscanf(fp, "%s", student[i].prezime);
-		fscanf(fp, "%d", &student[i].bodovi);
-		i++;
-	}
-
-	fclose(fp);
-	return 0;
-}
-
-int ispis(studenti* student, int numStudents) {
-	float relativePointsNum = 0;
-	for (int i = 0; i < numStudents; i++) {
-		printf("%d. student: \n", i + 1);
-		relativePointsNum = ((float)student[i].bodovi / MAX_BROJ_BODOVA) * 100;
-		printf(" Ime: %s\n Prezime: %s\n Apsolutni broj bodova: %d\n Relativni broj bodova: %f\n", student[i].ime, student[i].prezime, student[i].bodovi, relativePointsNum);
-	}
-	return 0;
+void Ispis(ljud head)
+{
+	ljud p = NULL;
+	ljud q = NULL;
+	p = head->next;
+	while (p != NULL) {
+		q = p->next;
+		printf("%s\t %s\t %d\n", p->ime,p->prezime,p->godina);
+		p = q;
+    }	
 }
