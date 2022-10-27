@@ -21,14 +21,15 @@ typedef struct osoba {
 
 ljud Stvori(char* , char*, int);
 void UnosP(ljud head, ljud p);
-void Ispis(head->next);
+void Ispis(ljud head);
 
 
 int main(void)
 {
 	Osoba head;
-	//ljud head = NULL;
+	head.next = NULL;
 	ljud p = NULL;
+  ljud q = NULL;
 	int odabir = 0;
 	char ime[MAX] = { 0 };
 	char prezime[MAX] = { 0 };
@@ -39,35 +40,34 @@ int main(void)
 	while (odabir == 1)
 	{
 		printf("IME: ");
-		scanf("%s", ime);
+		scanf(" %s", ime);
 		printf("\nPREZIME: ");
-		scanf("%s", prezime);
+		scanf(" %s", prezime);
 		printf("\nGODINA: ");
 		scanf("%d", &godina);
 		p = Stvori(ime, prezime, godina);
-
+    UnosP(&head, p);
 		printf("zelite li unjeti ime na pocetak liste?\nda-> 1\n ne->2\n");
 		scanf("%d", &odabir);
 		
 	}
-	UnosP(&head, p);
+	
 	Ispis(&head);
 
 	return EXIT_SUCCESS;
 }
 
-ljud Stvori(char* ime, char*prezime, int godina) {
+ljud Stvori(char* ime, char* prezime, int godina) {
 	ljud p = NULL;
 	p = (ljud)malloc(sizeof(Osoba));
+  strcpy(p->ime,ime);
+	strcpy(p->prezime, prezime);
+	p->godina=godina;
 	if (!p)
 	{
 		printf("alokacija je neuspjesna :( \n");
 		return NULL;
-
 	}
-	strcpy(p->ime,ime);
-	strcpy(p->prezime, prezime);
-	p->godina=godina;
 	return p;
 }
 
@@ -77,22 +77,14 @@ void UnosP(ljud head, ljud p)
 	head->next = p;
 }
 
-void Ispis(ljud x)
+void Ispis(ljud head)
 {
-	/*ljud p = NULL;
+	ljud p = NULL;
 	ljud q = NULL;
 	p = head->next;
-
 	while (p != NULL) {
 		q = p->next;
 		printf("%s\t %s\t %d\n", p->ime,p->prezime,p->godina);
 		p = q;
-	}*/
-	while (x != NULL)
-	{
-		printf("%s %s %d", x->ime, x->prezime, x->godina);
-		x = x->next;
-	}
-
-	
+    }	
 }
