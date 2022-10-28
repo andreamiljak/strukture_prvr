@@ -30,7 +30,7 @@ void izbrisi(int, ljud);
 
 int main(void)
 {
-	Osoba head;
+	Osoba head;			//treba sve na nulu inic., viticaste pa pristupit svakom (head.ime= {0}...)
 	char temp[MAX] = { 0 };
 	head.next = NULL;
 	ljud p = NULL;
@@ -39,7 +39,7 @@ int main(void)
 	char ime[MAX] = { 0 };
 	char prezime[MAX] = { 0 };
 	int godina = 0;
-	int i;
+	int i=0;			
 
 	printf("zelite li unjeti ime na pocetak liste?\nda-> 1\nne-> 2\n");
 	scanf("%d", &odabir);
@@ -53,7 +53,7 @@ int main(void)
 		scanf("%d", &godina);
 		p = Stvori(ime, prezime, godina);
 		UnosP(&head, p);
-		printf("zelite li unjeti ime na pocetak liste?\nda-> 1\nne->2\n");
+		printf("zelite li unjeti ime na pocetak liste?\nda-> 1\nne->2\n");		//meni u zasebnu funkciju
 		scanf("%d", &odabir);
 
 	}
@@ -95,7 +95,7 @@ ljud Stvori(char* ime, char* prezime, int godina) {
 	ljud p = NULL;
 	p = (ljud)malloc(sizeof(Osoba));
 	strcpy(p->ime, ime);
-	strcpy(p->prezime, prezime);
+	strcpy(p->prezime, prezime);		//radi malloca obrni if petlju i strcpy
 	p->godina = godina;
 	if (!p)
 	{
@@ -137,7 +137,7 @@ ljud Pronadi(ljud head, char* temp)
 	ljud q = NULL;
 	q = head->next;
 	while (q != NULL) {
-		if (strcmp(q->prezime, temp) == 0)
+		if (strcmp(q->prezime, temp) == 0)	//strcmp skupa u while petlji (i)
 			return q;
 		q= q->next;
 	}
@@ -147,10 +147,10 @@ ljud Pronadi(ljud head, char* temp)
 void izbrisi(int n, ljud head) {
 	ljud temp1 = head;
 	int i;
-	for (i = 0; i < n - 1; i++) {
+	for (i = 0; i < n - 1; i++) {   //stavi while umjesto for, while(head.next!=NULL)
 		temp1 = temp1->next;
 	}
-	ljud temp2 = temp1->next;
+	ljud temp2 = temp1->next; 	//temp2 neka bude todelete, zasebna funkcija ta 3 reda
 	temp1->next = temp2->next;
 	free(temp2);
 }
