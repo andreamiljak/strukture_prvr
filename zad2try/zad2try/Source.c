@@ -22,7 +22,7 @@ typedef struct osoba {
 ljud Stvori(char*, char*, int);
 void UnosP(ljud head, ljud p);
 void Ispis(ljud head);
-void UnosK(ljud head, ljud p);
+void UnosK(ljud head, ljud p);		//int tip funkcija mora bit
 ljud Pronadi(ljud, char*);
 void izbrisi(int, ljud);
 
