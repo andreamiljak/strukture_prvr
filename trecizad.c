@@ -315,7 +315,7 @@ void unosDatoteka(char* filename, ljud head) {
 		printf("Greska pri otvaranju datoteke!\n");
 		return ERROR;
 	}
-	//head = head->next;
+	head = head->next;
 	while (head != NULL) {
 
 		fprintf(fp, "\n%s %s %d", head->ime, head->prezime, head->godina);
