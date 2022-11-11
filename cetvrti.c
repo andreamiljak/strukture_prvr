@@ -50,10 +50,8 @@ int main(void)
 		.next = NULL
 	};
 	
-	pozicija prvi_pol = NULL;
-	prvi_pol = (pozicija)malloc(sizeof(Polinom));
-	pozicija drugi_pol = NULL;
-	drugi_pol = (pozicija)malloc(sizeof(Polinom));
+		
+	
 	//UcitajPoli(&head1, &head2);
 
 	
@@ -64,7 +62,7 @@ int main(void)
 	printf("zbroj polinoma:\n");
 	Ispis(&headZbroj);
 	printf("umnozak polinoma:\n");
-	Ispis(&headUmnozak);
+	Ispis(&headUmnozak);					//free memoriju
 
 	return EXIT_SUCCESS;
 }
@@ -75,7 +73,7 @@ int UcitajPoli(pozicija head1, pozicija head2)
 	pozicija prvi_pol = NULL;
 	prvi_pol = (pozicija)malloc(sizeof(Polinom));
 	pozicija drugi_pol = NULL;
-	drugi_pol = (pozicija)malloc(sizeof(Polinom));
+	drugi_pol = (pozicija)malloc(sizeof(Polinom));			//provjeri malloca
 	int c, e, n = 0;
 	char buffer[MAX] = { 0 };
 	char* p = buffer;
@@ -90,7 +88,7 @@ int UcitajPoli(pozicija head1, pozicija head2)
 	while (!feof(fp))
 	{
 
-		fgets(p, MAX, fp);
+		fgets(p, MAX, fp);					//dva fgetsa
 
 		while (strlen(p) > 0)
 		{
@@ -103,7 +101,7 @@ int UcitajPoli(pozicija head1, pozicija head2)
 			}
 			else if (br_red == 2 && c != 0)
 			{
-				drugi_pol = StvoriPoli(c, e);
+				drugi_pol = StvoriPoli(c, e);		
 				Sortiraj(&head2, drugi_pol);
 			}
 			p =p + n;
@@ -122,7 +120,7 @@ int UcitajPoli(pozicija head1, pozicija head2)
 			printf("\n");
 		}
 			
-		br_red++;
+		br_red++;						//ne treba brojač
 	}
 	return EXIT_SUCCESS;;
 }
@@ -146,8 +144,8 @@ int Sortiraj(pozicija p, pozicija novi)
 	int n = 0;
 
 
-	while (prvi->next != NULL)
-	{
+	while (prvi->next != NULL)						//ne ulazi nam u petlju popravi!!!
+	{										//lista prazna nema head.nexta
 
 		
 		if (prvi->next != NULL && prvi->next->eksp == drugi->eksp)
@@ -169,7 +167,7 @@ int Sortiraj(pozicija p, pozicija novi)
 
 }
 
-int Unos(pozicija p, pozicija novi)
+int Unos(pozicija p, pozicija novi)			//ovo pozovi negdi
 {
 	novi->next = p->next;
 	p->next = novi;
@@ -215,7 +213,7 @@ int ZbrojPoli(pozicija p1, pozicija p2, pozicija s)
 	pozicija temp = NULL;
 	int n = 0;
 
-	if (p1->eksp == p2->eksp)
+	if (p1->eksp == p2->eksp)		//fali while petlja  jer mora proc dook jedan od njih nije nula
 	{
 		if (p1->koef + p2->koef == 0)
 		{
@@ -261,7 +259,7 @@ int UmnozakPoli(pozicija p1, pozicija p2, pozicija u)
 			temp = StvoriPoli(k, e);
 			Sortiraj(u, temp);
 
-			p2 = p2->next;
+			p2 = p2->next;				//vrati p2 na pocetnu vrijednost
 		}
 		p1 = p1->next;
 	}
