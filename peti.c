@@ -51,7 +51,7 @@ int readfromfile(char* filename, char* izraz)
 	fp = fopen(filename, "r");
 	if (!fp)
 	{
-		printf("gre�ka pri otvaranju datoteke");
+		printf("greska pri otvaranju datoteke");
 		return ERROR;
 	}
 	fgets(izraz, MAX, fp);
