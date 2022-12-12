@@ -115,28 +115,19 @@ int postfix(char* izraz)
 			sscanf(izraz, "%s %n", operacija, &n);
 
 			if (strcmp(operacija, "+") == 0) {
-				/*if (head.next == NULL || head.next->next == NULL) {
-				printf("Neispravan postfix!\n");
-				break;
-				}*/
+				
 				temp1 = pop(&head);
 				temp2 = pop(&head);
 				push(&head, temp1 + temp2);
 			}
 			else if (strcmp(operacija, "-") == 0) {
-				/*if (head.next == NULL || head.next->next == NULL) {
-				printf("Neispravan postfix!\n");
-				break;
-				}*/
+				
 				temp1 = pop(&head);
 				temp2 = pop(&head);
 				push(&head, temp1 - temp2);
 			}
 			else if (strcmp(operacija, "*") == 0) {
-				/*if (head.next == NULL || head.next->next == NULL) {
-				printf("Neispravan postfix!\n");
-				break;
-				}*/
+				
 				temp1 = pop(&head);
 				temp2 = pop(&head);
 				push(&head, temp1 * temp2);
@@ -150,11 +141,6 @@ int postfix(char* izraz)
 		}
 		izraz += n;
 	}
-
-	/*if (head.next == NULL || head.next->next != NULL) {
-	printf("Neispravan postfix!\n");
-	return ERROR;
-	}*/
 
 	rezultat = pop(&head);
 	return rezultat;
