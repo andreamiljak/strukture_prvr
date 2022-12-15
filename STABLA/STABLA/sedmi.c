@@ -30,6 +30,9 @@ pozicijaD pop(pozicijaS);
 int SortiraniUnos(pozicijaD, pozicijaS);
 pozicijaD cd( char* , pozicijaD, pozicijaS);	//change directory
 pozicijaD cd_tockatocka(pozicijaS, pozicijaD);			//cd..
+pozicijaD dir(pozicijaD);
+pozicijaD brisisve(pozicijaD);				// za izlaz
+
 
 int main(void)
 {
@@ -138,4 +141,32 @@ pozicijaD cd(char* ime_poddir, pozicijaD element, pozicijaS head)
 pozicijaD cd_tockatocka(pozicijaS x , pozicijaD xy)
 {
 	pozicijaD element = Pop();
+}
+
+pozicijaD dir(pozicijaD glavni_dir)
+{
+	pozicijaD poddir = glavni_dir->child;
+	if (poddir == NULL)
+	{
+		printf("prazan direktorij\n");
+		return NULL;
+	}
+	else
+	{
+		while (poddir->sibling != NULL)
+		{
+			printf("%s\t", poddir->ime);
+			poddir = poddir->sibling;
+		}
+		return NULL;
+	}
+}
+pozicijaD brisisve(pozicijaD current)
+{
+	if (current == NULL)
+		return NULL;
+	brisisve(current->sibling);
+	brisisve(current->child);
+	free (current);
+	return NULL;
 }
