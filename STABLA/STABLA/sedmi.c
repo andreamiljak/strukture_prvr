@@ -137,11 +137,18 @@ pozicijaD cd(char* ime_poddir, pozicijaD element, pozicijaS head)
 		return temp;
 	}
 }
-
-pozicijaD cd_tockatocka(pozicijaS x , pozicijaD xy)
+/*
+pozicijaD cd_tockatocka(pozicijaS s , pozicijaD d)
 {
-	pozicijaD element = Pop();
+	pozicijaD element = Pop(s);
+	if (element == NULL)
+	{
+		printf("nemate se kamo vratit\n");
+		return d;
+	}
+	return element;
 }
+*/
 
 pozicijaD dir(pozicijaD glavni_dir)
 {
