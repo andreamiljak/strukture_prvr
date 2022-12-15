@@ -1,0 +1,141 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 1024
+#define EXIT_SUCCESS 0
+#define EXIT_FAIL -1
+
+struct stablo;
+typedef struct stablo* pozicijaD;
+typedef struct stablo
+{
+	char ime[MAX];
+	pozicijaD child;
+	pozicijaD sibling;
+}Direktorij;
+
+struct stog;
+typedef struct stog* pozicijaS;
+typedef struct stog {
+	pozicijaD el;
+	pozicijaS next;
+}Stog;
+
+pozicijaD md(char*, pozicijaD);  //make directory
+int PrintMeni();
+int push(pozicijaS, pozicijaD);
+pozicijaD pop(pozicijaS);
+int SortiraniUnos(pozicijaD, pozicijaS);
+pozicijaD cd( char* , pozicijaD, pozicijaS);	//change directory
+pozicijaD cd_tockatocka(pozicijaS, pozicijaD);			//cd..
+
+int main(void)
+{
+	char ime[MAX] = { 0 };
+	pozicijaD root;
+	root = (pozicijaD)malloc(sizeof(Direktorij));
+	root = md(ime, root );
+	
+	PrintMeni();
+	
+
+	return 0;
+}
+
+
+
+pozicijaD md(char* ime_novog_dir, pozicijaD element)
+
+{
+	pozicijaD novi_dir;
+	novi_dir = (pozicijaD)malloc(sizeof(Direktorij));
+	strcpy(novi_dir->ime, ime_novog_dir);
+	if (element->child==NULL )
+	{
+		element->child = novi_dir;
+	}
+	else
+	{
+		pozicijaD currChild = (pozicijaD)malloc(sizeof(Direktorij));
+		currChild = element->child; 
+		
+		while (currChild->sibling)
+			currChild = currChild->sibling;
+		currChild->sibling = novi_dir;
+	}
+	novi_dir->child = NULL;
+	novi_dir->sibling = NULL;
+	
+	return element;
+}
+
+int PrintMeni()
+{
+	printf("\n * * * * * * * * * * * * * * * * * * * * *\n\t\tMENI\n Odaberite:\n");
+	printf("\tmd  -> za dodavanje novog direktorija\n");
+	printf("\tcd dir  -> za otvaranje odredenog direktorija\n");
+	printf("\tcd..  -> za povratak u prethodni direktorij\n");
+	printf("\tdir  -> pokazuje sav sadrzaj\n");
+	printf("\texit  -> za izlaz\n");
+	printf("___________________________________________________\n");
+
+	return EXIT_SUCCESS;
+}
+
+int push(pozicijaS head, pozicijaD element)
+{
+	pozicijaS novi= (pozicijaS)malloc(sizeof(Stog));
+	if (novi == NULL)
+	{
+		printf("greska pri alokaciji memorije\n");
+		return EXIT_FAIL;
+	}
+		
+	
+	
+	novi->next = head->next;
+	head->next = novi;
+	return  EXIT_SUCCESS;
+}
+
+pozicijaD pop(pozicijaS head)
+{
+	pozicijaS temp = head->next;
+					
+	if (head->next==NULL)           
+		return NULL;
+	
+	pozicijaD dir = temp->el;
+	head->next = temp->next;
+	free(temp);
+	return dir;
+}
+
+pozicijaD cd(char* ime_poddir, pozicijaD element, pozicijaS head)
+{
+	pozicijaD temp = element->child;
+	while (temp!=NULL && strcmp(ime_poddir, temp->ime)!=0)
+	{
+		temp = temp->sibling;
+	}
+	if (temp == NULL)
+	{
+		printf("ne postoji direktorij s imenom %s", ime_poddir);
+		return element;
+	}
+	else
+	{
+		pozicijaS novi;
+		novi->el = element;
+		novi->next = NULL;
+		push(head, novi);
+		return temp;
+	}
+}
+
+pozicijaD cd_tockatocka(pozicijaS x , pozicijaD xy)
+{
+	pozicijaD element = Pop();
+}
