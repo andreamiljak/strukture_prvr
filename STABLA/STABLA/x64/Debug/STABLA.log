@@ -1,7 +1,0 @@
-﻿  sedmi.c
-C:\Users\andre\source\repos\STABLA\STABLA\sedmi.c(139,18): warning C4133: 'function': incompatible types - from 'pozicijaS' to 'pozicijaD'
-C:\Users\andre\source\repos\STABLA\STABLA\sedmi.c(148,22): warning C4013: 'Pop' undefined; assuming extern returning int
-C:\Users\andre\source\repos\STABLA\STABLA\sedmi.c(148,1): warning C4047: 'initializing': 'pozicijaD' differs in levels of indirection from 'int'
-C:\Users\andre\source\repos\STABLA\STABLA\sedmi.c(149): warning C4716: 'nazad': must return a value
-sedmi.obj : error LNK2019: unresolved external symbol Pop referenced in function nazad
-C:\Users\andre\source\repos\STABLA\x64\Debug\STABLA.exe : fatal error LNK1120: 1 unresolved externals
