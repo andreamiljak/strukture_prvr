@@ -1,0 +1,3 @@
+﻿  Source.c
+C:\Users\andre\source\repos\BS\BS\Source.c(147): warning C4715: 'Trazi': not all control paths return a value
+  BS.vcxproj -> C:\Users\andre\source\repos\BS\x64\Debug\BS.exe
