@@ -1,0 +1,6 @@
+﻿  Source.c
+C:\Users\andre\source\repos\devetiii\devetiii\Source.c(45,8): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\andre\source\repos\devetiii\devetiii\Source.c(50,22): warning C4047: 'function': 'dite' differs in levels of indirection from 'int'
+C:\Users\andre\source\repos\devetiii\devetiii\Source.c(50,19): warning C4024: 'insert': different types for formal and actual parameter 2
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(1094,5): error MSB6006: "link.exe" exited with code 1168.
+LINK : fatal error LNK1168: cannot open C:\Users\andre\source\repos\devetiii\x64\Debug\devetiii.exe for writing
