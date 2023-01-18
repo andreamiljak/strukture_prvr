@@ -1,0 +1,7 @@
+﻿  Source.c
+C:\Users\ivanm\source\repos\10.zad\10.zad\Source.c(42,14): warning C4101: 'head': unreferenced local variable
+C:\Users\ivanm\source\repos\10.zad\10.zad\Source.c(74,47): warning C4133: '=': incompatible types - from 'gradP' to 'pozicija'
+C:\Users\ivanm\source\repos\10.zad\10.zad\Source.c(143,17): warning C4133: 'function': incompatible types - from 'char [6]' to 'FILE *const '
+C:\Users\ivanm\source\repos\10.zad\10.zad\Source.c(148,42): warning C4047: '=': 'gradP' differs in levels of indirection from 'int'
+C:\Users\ivanm\source\repos\10.zad\10.zad\Source.c(152): warning C4715: 'citajGradove': not all control paths return a value
+C:\Users\ivanm\source\repos\10.zad\10.zad\Source.c(180): warning C4716: 'sortiraniUnos_gradovi': must return a value
