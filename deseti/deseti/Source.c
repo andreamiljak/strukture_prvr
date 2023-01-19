@@ -43,6 +43,8 @@ gradP sortiraniUnos_gradovi(gradP, gradP);
 int citycmp(gradP, gradP);
 int ispis_gradova(gradP);
 
+int hashkey(char*, int);
+
 int main()
 {
 	ListaDrzava head;
@@ -53,6 +55,8 @@ int main()
 	scanf("%s", filename);
 	citajDrzave(filename, &head);
 	ispis_drzava(&head);
+
+	
 
 	return 0;
 }
@@ -81,7 +85,9 @@ int citajDrzave(char* ime, pozicija head)
 		soriraniUnos_drzave(head, novi);
 		novi->cityRoot = citajGradove(novi->ime_dat);
 	}
+	
 
+	
 
 	fclose(fp);
 	return EXIT_SUCCESS;
@@ -241,4 +247,33 @@ int ispis_gradova(gradP root)
 
 	return EXIT_SUCCESS;
 
+}
+
+int hashkey(char* ime, int velH)
+{
+
+	int br = 0;
+	int d = 0;
+
+	d = strlen(ime);
+
+	if (d < 5)
+	{
+		for (int i = 0; i < d; i++)
+		{
+			br = br + ime[i];
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			br = br + ime[i];
+		
+		}
+	}
+
+	br = br % 11;
+
+	return br;
 }
