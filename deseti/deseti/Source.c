@@ -1,4 +1,4 @@
-﻿
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,7 +45,8 @@ int ispis_gradova(gradP);
 
 int main()
 {
-	ListaDrzava head = NULL;
+	ListaDrzava head;
+	head.next = NULL;
 
 	char filename[MAX] = { 0 };
 	printf("unesite ime datoteke iz koje zelite procitati drzave\n");
@@ -147,13 +148,16 @@ gradP citajGradove(char* imeDat)
 	while (!feof(fp))
 	{
 		gradP grad = NULL;
-		fscanf("%s %d", ime, &br_stan);
+		fscanf(fp, "%s %d", ime, &br_stan);
 		grad = napraviCvor_stablo_gradova(ime, br_stan);
 
 		if (!grad)
 			return NULL;
 		root = sortiraniUnos_gradovi(root, grad);
 	}
+
+	fclose(fp);
+	return root;
 }
 
 gradP napraviCvor_stablo_gradova(char* imeGrada, int brojStanovnika)
@@ -162,6 +166,8 @@ gradP napraviCvor_stablo_gradova(char* imeGrada, int brojStanovnika)
 	cvor_stabla = alokacija_gradovi(cvor_stabla);
 	strcpy(cvor_stabla->ime_grada, imeGrada);
 	cvor_stabla->broj_stanovnika = brojStanovnika;
+	cvor_stabla->left = NULL;
+	cvor_stabla->right = NULL;
 
 	if (!cvor_stabla)
 		return NULL;
@@ -182,6 +188,10 @@ gradP alokacija_gradovi(gradP p)
 gradP sortiraniUnos_gradovi(gradP curr, gradP novi_cvor)
 {
 	int rez = 0;
+
+	if (curr == NULL)
+		return novi_cvor;
+
 	rez = citycmp(curr, novi_cvor);
 	if (rez < 0)
 	{
@@ -213,7 +223,7 @@ int ispis_drzava(pozicija p)
 	q = p->next;
 	while (q != NULL)
 	{
-		printf("%s", q->ime_drzave);
+		printf("%s\n", q->ime_drzave);
 		ispis_gradova(q->cityRoot);
 		q = q->next;
 	}
@@ -223,11 +233,10 @@ int ispis_gradova(gradP root)
 {
 	if (!root)
 	{
-		printf("greska");
 		return ERROR;
 	}
 	ispis_gradova(root->right);
-	printf("%s %d", root->ime_grada, root->broj_stanovnika);
+	printf("\t%s %d\r\n", root->ime_grada, root->broj_stanovnika);
 	ispis_gradova(root->left);
 
 	return EXIT_SUCCESS;
